@@ -1,5 +1,6 @@
 from django.db import models
 from imagekit.models import ProcessedImageField
+from django.urls import reverse
 
 # Create your models here.
 class Post(models.Model):
@@ -7,7 +8,14 @@ class Post(models.Model):
     image = ProcessedImageField(
         upload_to = 'static/images/posts',
         format='JPEG',
-        options={'quality':100},
+        options={'quality': 100},
         blank=True, 
         null=True,
     )
+
+    def __str__(self):
+        return self.title
+    
+    #after submit a post, auto redirect to specified page: detail view
+    def get_absolute_url(self):
+        return reverse("post_detail", args=(str(self.id)))
