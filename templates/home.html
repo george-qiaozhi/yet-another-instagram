@@ -1,11 +1,9 @@
-<h1>Yet another Instagram</h1>
+{% extends 'base.html' %}
 
-<p>
-    <div>
-        Hello!
-    </div>
-</p>
+{% block content %}
 
 <div> 
     <a href="{% url 'posts' %}">Browse All Posts</a>
 </div>
+
+{% endblock content %}

@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
 <div>
     <a href="{% url 'post_update' object.id %}">Update Post</a>
     <a href="{% url 'post_delete' object.id %}">Delete Post</a>
@@ -9,3 +13,5 @@
 <div>
     <a href="{% url 'posts' %}">Back</a>
 </div>
+
+{% endblock content %}
