@@ -131,3 +131,5 @@ LOGOUT_REDIRECT_URL = 'posts'
 
 #replace the default user to customized user model
 AUTH_USER_MODEL = 'instaAPP.InstaUser'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
