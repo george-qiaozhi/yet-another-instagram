@@ -9,6 +9,7 @@ function error_cb(error) {
  *
  */
 
+//  _cb: call back --> 
 function create_like(success_cb, error_cb) {
     var post_pk = $(this).siblings('.hidden-data').find('.post-pk').text();
     console.log(post_pk);
@@ -30,6 +31,7 @@ function like_update_view(data) {
     // toggle heart
     var $hiddenData = $('.hidden-data.' + data.post_pk);
     if (data.result) {
+      // HTML DOM siblings: at same <div> level
       $hiddenData.siblings('.submit-like').removeClass('fa-heart-o').addClass('fa-heart');
     } else {
       $hiddenData.siblings('.submit-like').removeClass('fa-heart').addClass('fa-heart-o');
@@ -54,7 +56,7 @@ function like_update_view(data) {
       $likes.text(likes + ' likes');
     }
 }
- 
+// register a monitor for user action
 $('.submit-like').on('click', function() {
     create_like.call(this, like_update_view, error_cb);
 });

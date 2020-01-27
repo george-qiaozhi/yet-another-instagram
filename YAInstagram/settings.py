@@ -123,8 +123,9 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+#default action for redirect
 LOGIN_REDIRECT_URL = 'posts'
-
 LOGOUT_REDIRECT_URL = 'posts'
 
+#replace the default user to customized user model
 AUTH_USER_MODEL = 'instaAPP.InstaUser'
