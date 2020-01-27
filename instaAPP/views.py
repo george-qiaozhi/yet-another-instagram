@@ -15,6 +15,7 @@ from .models import Post, Like, UserConnection, InstaUser
 class PostsListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = "master_view.html"
+    login_url = "login"
 
     def get_queryset(self):
         current_user = self.request.user
@@ -28,14 +29,13 @@ class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
     template_name = "post_detail.html"
     #if not logged in, jump to login
-    login_url = 'login'
+    login_url = "login"
 
 
 class PostCreateView(CreateView):
     model = Post
     template_name = "post_create.html"
     fields = '__all__'
-    login_url = 'login'
 
 
 class PostUpdateView(UpdateView):
@@ -63,6 +63,7 @@ class SignUp(CreateView):
 class UserDetailView(LoginRequiredMixin, DetailView):
     model = InstaUser
     template_name = "user_detail.html"
+    login_url = "login"
 
 # like, comment
 @ajax_request  # non-class based, not belong to an object
