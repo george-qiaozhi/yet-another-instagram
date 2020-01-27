@@ -11,9 +11,6 @@ from .forms import CustomUserCreationForm
 from .models import Post, Like, UserConnection, InstaUser
 
 # CRUD
-class HelloWorld(TemplateView):
-    template_name = "home.html"
-
 
 class PostsListView(LoginRequiredMixin, ListView):
     model = Post

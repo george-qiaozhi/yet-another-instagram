@@ -1,11 +1,10 @@
 from django.urls import path
-from instaAPP.views import (HelloWorld, PostsListView, PostDetailView, 
+from instaAPP.views import (PostsListView, PostDetailView, 
                     PostCreateView, PostUpdateView, PostDeleteView,
                     SignUp, addLike, UserDetailView)
 
 urlpatterns = [
-    path('', HelloWorld.as_view(), name='home'),
-    path('posts/', PostsListView.as_view(), name='posts'),
+    path('', PostsListView.as_view(), name='posts'),
     #<> provide extra parameter, int type, pk primary key
     path('post/<int:pk>', PostDetailView.as_view(), name='post_detail'),
     path('post/new/', PostCreateView.as_view(), name='make_post'), 
