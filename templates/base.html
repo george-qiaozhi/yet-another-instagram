@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     {% load static %}
     <head>
@@ -9,23 +10,23 @@
         <link href="{% static 'css/style.css' %}" rel="stylesheet">
     </head>
     <body>
-
-        {% include 'header.html' %}
-        
-        <div class="content-wrapper">
-            <div class="container">
-                {% block content %}
-                {% endblock content%}
+        <main>
+            {% include 'header.html' %}
+            
+            <div class="content-wrapper">
+                <div class="container">
+                    {% block content %}
+                    {% endblock content%}
+                </div>
             </div>
-        </div>
 
-        <script type="text/javascript" src="{% static 'js/jquery-3.1.0.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/ajax-csrf-auth.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/jquery-3.1.0.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/ajax-csrf-auth.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
 
-        {% block extrascript %}
-        {% endblock %}
-
+            {% block extrascript %}
+            {% endblock %}
+        </main>
     </body>
 </html>

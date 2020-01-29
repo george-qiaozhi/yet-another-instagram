@@ -15,15 +15,16 @@ Including another URLconf
 """
 from django.urls import path
 from instaAPP.views import (PostsListView, PostDetailView, ExploreView,
-                    PostCreateView, PostUpdateView, PostDeleteView,
+                    PostCreateView, MakeInstaPost, PostUpdateView, PostDeleteView,
                     addLike, addComment, toggleFollow, 
-                    SignUp, UserDetailView, UserUpdateView)
+                    SignUp, UserDetailView, UserUpdateView,
+                    FollowerProfile, FollowingProfile)
 
 urlpatterns = [
     path('', PostsListView.as_view(), name='home'),
     #<> provide extra parameter, int type, pk primary key
     path('post/<int:pk>', PostDetailView.as_view(), name='post_detail'),
-    path('post/new/', PostCreateView.as_view(), name='make_post'), 
+    path('post/new/', MakeInstaPost.as_view(), name='make_post'), 
     path('post/edit/<int:pk>', PostUpdateView.as_view(), name='post_update'),
     path('post/delete/<int:pk>', PostDeleteView.as_view(), name='post_delete'),
     path('auth/signup', SignUp.as_view(), name='signup'),
@@ -33,4 +34,6 @@ urlpatterns = [
     path('user/<int:pk>', UserDetailView.as_view(), name='user_detail'),
     path('user/edit/<int:pk>', UserUpdateView.as_view(), name='user_update'),
     path('explore', ExploreView.as_view(), name='explore'),
+    path('follower/<int:pk>/', FollowerProfile.as_view(), name='follower'),
+    path('following/<int:pk>/', FollowingProfile.as_view(), name='following'),
 ]

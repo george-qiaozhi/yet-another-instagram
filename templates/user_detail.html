@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
-{% load custom_tags %}
+{% load static custom_tags %}
+
+{% block title %}User Profile{% endblock %}
 
 {% block content %}
 
@@ -10,7 +12,7 @@
         <div class="row">
             <div class="col-xs-4 left">
                 {% if object.profile_pic %}
-                    <img class="picture-circle" src="/{{object.profile_pic}}">
+                    <img class="picture-circle" src="{{object.profile_pic.urls}}">
                 {% endif %}
             </div>
             <div class="col-xs-8 right">
@@ -37,8 +39,20 @@
                 <div>
                     <ul class="stats">
                         <div class="col-xs-4"><li class="stats__count"><span>{{ object.posts.count }}</span><br> posts</li></div>
-                        <div class="col-xs-4"><a href="/" style="text-decoration: none; color: black;"><li class="stats__count"><span class="follower_count" id="follower_id">{{ object.get_followers.count }}</span><br> followers</li></a></div>
-                        <div class="col-xs-4"><a href="/" style="text-decoration: none; color: black;"><li class="stats__count"><span>{{ object.get_connections.count }}</span><br> following</li></a></div>
+                        <div class="col-xs-4">
+                            <a href="{% url 'follower' object.pk %}" style="text-decoration: none; color: black;">
+                                <li class="stats__count">
+                                    <span class="follower_count" id="follower_id">{{ object.get_followers.count }}</span> <br> followers
+                                </li>
+                            </a>
+                        </div>
+                        <div class="col-xs-4">
+                            <a href="{% url 'following' object.pk %}" style="text-decoration: none; color: black;">
+                                <li class="stats__count">
+                                    <span>{{ object.get_connections.count }}</span><br> following
+                                </li>
+                            </a>
+                        </div>
                     </ul>
                 </div>
             </div>

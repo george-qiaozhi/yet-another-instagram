@@ -81,9 +81,36 @@ class Post(models.Model):
         return reverse("post_detail", args=(str(self.id)))
 
 
+class InstaPost(models.Model):
+    author = models.ForeignKey( # a foreign key indicate a Many-To-One relationship
+        InstaUser, #foreign key is InstaUser
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE, # delete this author will delete all his posts
+        related_name='insta_posts', # we can use author.posts to get all posts belong to this user
+        )
+    title = models.TextField(blank=True, null=True)
+    image = ProcessedImageField(
+        format='JPEG',
+        options={'quality': 100},
+        blank=True,
+        null=True,
+        )
+    posted_on = models.DateTimeField(auto_now_add=True, editable=False)
+
+    def __str__(self):
+        return self.title
+
+    def get_like_count(self):
+        return self.likes.count()
+
+    def get_comment_count(self):
+        return self.comments.count()
+
+
 class Like(models.Model):
     post = models.ForeignKey(
-        Post,
+        InstaPost,
         on_delete=models.CASCADE,
         related_name='likes',
         )
@@ -102,7 +129,7 @@ class Like(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(
-        Post,
+        InstaPost,
         on_delete=models.CASCADE,
         related_name='comments',
     )

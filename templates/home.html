@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load custom_tags %}
+{% load static custom_tags %}
 
 {% block content %}
 
@@ -12,7 +12,7 @@
                     <div class="poster__info">
                         <a href="{% url 'user_detail' post.author.pk %}" class="poster__name">
                             {% if post.author.profile_pic %}
-                                <img class="poster__profilepic" src="/{{ post.author.profile_pic.url }}">
+                                <img class="poster__profilepic" src="{{ post.author.profile_pic.url }}">
                             {% endif %}
                             {{ post.author.username }}
                         </a>
@@ -23,7 +23,7 @@
                 </div>
 
                 <a href="{% url 'post_detail' post.pk %}">
-                    <img class="card__main-image" src="/{{ post.image }}" width='400' height='400'>
+                    <img class="card__main-image" src="{{ post.image.url }}" width='400' height='400'>
                 </a>
 
                 <div class="card__panel-body">

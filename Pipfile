@@ -11,7 +11,9 @@ django-imagekit = "*"
 pillow = "*"
 django-annoying = "*"
 gunicorn = "*"
-whitenoise = "*"
+boto3 = "*"
+django-storages = "*"
+python-decouple = "*"
 
 [requires]
 python_version = "3.7"

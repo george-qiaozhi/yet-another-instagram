@@ -7,7 +7,7 @@ from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from .forms import CustomUserCreationForm
-from .models import Post, Like, Comment, UserConnection, InstaUser
+from .models import Post, Like, Comment, UserConnection, InstaUser, InstaPost
 
 # CRUD
 class PostsListView(LoginRequiredMixin, ListView):
@@ -54,6 +54,18 @@ class PostCreateView(CreateView):
     fields = '__all__'
 
 
+class MakeInstaPost(LoginRequiredMixin, CreateView):
+    model = InstaPost
+    success_url = reverse_lazy('index')
+    fields = ['title', 'image',]
+    template_name = 'make_post.html'
+    login_url = 'login'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
 class PostUpdateView(UpdateView):
     model = Post
     template_name = "post_update.html"
@@ -86,6 +98,34 @@ class UserUpdateView(LoginRequiredMixin, DetailView):
     template_name = "user_update.html"
     fields = ['profile_pic', 'username']
     login_url = 'login'
+
+
+# Follower / Following
+class FollowerProfile(LoginRequiredMixin, ListView):
+    model = InstaUser
+    template_name = 'connections.html'
+    login_url = 'login'
+
+    def get_queryset(self):
+        user_pk = self.kwargs['pk']
+        this_user = InstaUser.objects.filter(pk=user_pk)
+        followers = set()
+        for conn in UserConnection.objects.filter(following__in=this_user):
+            followers.add(conn.creator.pk)
+        return InstaUser.objects.filter(pk__in=followers)
+
+class FollowingProfile(LoginRequiredMixin, ListView):
+    model = InstaUser
+    template_name = 'connections.html'
+    login_url = 'login'
+
+    def get_queryset(self):
+        following = set()
+        connection_set = UserConnection.objects.filter(creator__pk=self.kwargs['pk'])
+
+        for connection in connection_set:
+            following.add(connection.following.pk)
+        return InstaUser.objects.filter(pk__in=following)
 
 
 # like, comment, follow --> button inplace update
