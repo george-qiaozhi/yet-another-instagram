@@ -10,6 +10,7 @@ A instagram clone for practicing Django web development and cloud deployment.
 * User profile
 
 ### Environment:
+* Web server: gunicorn
 * Storage: S3
 * Deployment: Heroku
 * User Authentication: Django Content Management Service (CMS)
